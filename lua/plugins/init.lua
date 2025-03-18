@@ -12,7 +12,13 @@ return {
       require "configs.lspconfig"
     end,
   },
-
+  {
+    "akinsho/toggleterm.nvim",
+    opts = {
+      open_mapping = [[<A-h>]],
+      direction = "horizontal",
+    }
+  }
   -- {
   -- 	"nvim-treesitter/nvim-treesitter",
   -- 	opts = {
