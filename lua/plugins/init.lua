@@ -14,18 +14,10 @@ return {
   },
   {
     "akinsho/toggleterm.nvim",
+    lazy = false,
     opts = {
-      open_mapping = [[<A-h>]],
+      open_mapping = [[<C-h>]],
       direction = "horizontal",
     }
-  }
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
+  },
 }
