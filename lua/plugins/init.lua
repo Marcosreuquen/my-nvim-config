@@ -15,9 +15,12 @@ return {
   {
     "akinsho/toggleterm.nvim",
     lazy = false,
-    opts = {
-      open_mapping = [[<C-h>]],
-      direction = "horizontal",
-    }
-  },
+    config = function()
+      require("toggleterm").setup({
+        direction = "horizontal",
+      })
+
+      vim.keymap.set("n", "<C-t>", "<Cmd>ToggleTerm<CR>", { noremap = true, silent = true})
+    end,
+  }
 }
