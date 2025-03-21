@@ -22,5 +22,37 @@ return {
 
       vim.keymap.set("n", "<C-t>", "<Cmd>ToggleTerm<CR>", { noremap = true, silent = true})
     end,
+  },
+  {
+    "nvim-tree/nvim-tree.lua",
+    config = function()
+      require("nvim-tree").setup({
+        filters = {
+          dotfiles = false,   -- Show hidden files
+          git_ignored = false -- Show files ignored by Git
+        },
+        git = {
+          enable = true,
+          ignore = false,  -- Dont hide ignored files
+        },
+        view = {
+          width = 35,
+          side = "left",
+          adaptive_size = false,
+        },
+        renderer = {
+          highlight_git = true,
+          root_folder_label = false,
+          icons = {
+            show = {
+              git = true,
+              folder = true,
+              file = true,
+              folder_arrow = true,
+            },
+          },
+        },
+      })
+    end
   }
 }
