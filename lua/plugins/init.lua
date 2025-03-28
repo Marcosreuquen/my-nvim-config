@@ -20,7 +20,10 @@ return {
         direction = "horizontal",
       })
 
+      -- normal mode
       vim.keymap.set("n", "<C-t>", "<Cmd>ToggleTerm<CR>", { noremap = true, silent = true})
+      -- terminal mode
+      vim.keymap.set("t", "<C-q>", "<C-\\><C-n>", { noremap = true, silent = true})
     end,
   },
   {
