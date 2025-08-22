@@ -69,5 +69,13 @@ return {
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {},
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    lazy = false,
+    dependencies = {
+          { "nvim-lua/plenary.nvim", branch = "master" },
+        },
+    opts = require "configs.copilot_chat"
   }
 }

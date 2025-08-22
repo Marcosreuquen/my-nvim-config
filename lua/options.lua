@@ -17,3 +17,8 @@ vim.opt.foldlevelstart = 99
 
 --vim.opt.foldtext = "v:lua.custom_foldtext()"
 vim.cmd([[highlight Folded guifg=#D4A6FF guibg=NONE gui=bold]])  -- Violeta claro sobre fondo oscuro
+
+-- Copilot Chat higlights
+vim.cmd([[highlight CopilotChatHeader guifg=#D4A6FF guibg=NONE gui=bold]])
+vim.cmd([[highlight CopilotChatSeparator guifg=#D4A6FF guibg=NONE gui=bold]])
+
