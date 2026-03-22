@@ -72,10 +72,8 @@ function M.project_name()
 end
 
 function M.git_status()
-  -- Try gitsigns first
   local status = vim.b.gitsigns_status_dict
   if not status or not status.head or status.head == "" then
-    -- Fallback: read branch from git directly
     local branch = vim.fn.system("git -C " .. vim.fn.getcwd() .. " branch --show-current 2>/dev/null"):gsub("%s+$", "")
     if vim.v.shell_error ~= 0 or branch == "" then
       return ""
@@ -104,7 +102,7 @@ end
 
 function M.term_info()
   local ok, tabs = pcall(function()
-    return require("configs.term_tabs").get_status()
+    return require("custom.term_tabs").get_status()
   end)
   if not ok or not tabs then return "" end
   return "%#StTermInfo# >_ " .. tabs.current .. "/" .. tabs.total .. " "

@@ -1,7 +1,7 @@
 local M = {}
 
-local term_ids = {}   -- lista ordenada de IDs de terminales activas
-local active_id = nil -- ID de la terminal actualmente visible
+local term_ids = {}
+local active_id = nil
 
 local function find_idx(id)
   for i, v in ipairs(term_ids) do
@@ -21,10 +21,6 @@ local function get_term(id)
   return require("toggleterm.terminal").get(id)
 end
 
-local function update_indicator()
-  -- Terminal indicator now lives in the statusline via statusline.lua
-end
-
 local function hide_active()
   if active_id then
     local term = get_term(active_id)
@@ -42,7 +38,6 @@ function M.toggle()
     local term = get_term(active_id)
     if term then
       term:toggle()
-      update_indicator()
     end
   end
 end
@@ -54,7 +49,6 @@ function M.new()
   table.insert(term_ids, id)
   active_id = id
   vim.cmd(id .. "ToggleTerm")
-  update_indicator()
 end
 
 -- Cierra y elimina la terminal activa, luego va a la adyacente
@@ -78,7 +72,6 @@ function M.close()
   if #term_ids > 0 then
     active_id = term_ids[math.min(idx, #term_ids)]
     vim.cmd(active_id .. "ToggleTerm")
-    update_indicator()
   else
     active_id = nil
   end
@@ -92,7 +85,6 @@ function M.next()
   hide_active()
   active_id = term_ids[(idx % #term_ids) + 1]
   vim.cmd(active_id .. "ToggleTerm")
-  update_indicator()
 end
 
 -- Salta a la terminal anterior (cíclico)
@@ -103,10 +95,9 @@ function M.prev()
   hide_active()
   active_id = term_ids[((idx - 2) % #term_ids) + 1]
   vim.cmd(active_id .. "ToggleTerm")
-  update_indicator()
 end
 
--- Expose terminal state for statusline
+-- Estado para el statusline
 function M.get_status()
   if #term_ids == 0 or not active_id then return nil end
   local idx = find_idx(active_id)
@@ -117,16 +108,9 @@ end
 function M.setup()
   local opts = { noremap = true, silent = true }
 
-  -- Reemplaza el toggle principal para usar el sistema de tabs
   vim.keymap.set({ "n", "t" }, "<C-t>", M.toggle, vim.tbl_extend("force", opts, { desc = "Toggle terminal" }))
-
-  -- Nueva terminal (tab)
   vim.keymap.set({ "n", "t" }, "<A-t>", M.new, vim.tbl_extend("force", opts, { desc = "New terminal tab" }))
-
-  -- Cerrar terminal actual
   vim.keymap.set({ "n", "t" }, "<A-w>", M.close, vim.tbl_extend("force", opts, { desc = "Close terminal tab" }))
-
-  -- Navegar entre terminales
   vim.keymap.set({ "n", "t" }, "<A-l>", M.next, vim.tbl_extend("force", opts, { desc = "Next terminal tab" }))
   vim.keymap.set({ "n", "t" }, "<A-h>", M.prev, vim.tbl_extend("force", opts, { desc = "Prev terminal tab" }))
 end

@@ -14,7 +14,7 @@ M.base46 = {
   },
 }
 
-local stl = require "configs.statusline"
+local stl = require "custom.statusline"
 
 M.ui = {
   statusline = {
