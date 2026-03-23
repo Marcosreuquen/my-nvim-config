@@ -24,11 +24,11 @@ return {
       vim.keymap.set("t", "<C-q>", "<C-\\><C-n>", { noremap = true, silent = true })
 
       vim.keymap.set({ "n", "t" }, "<C-=>", function()
-        vim.cmd "resize +5"
+        vim.cmd "resize +1"
       end, { noremap = true, silent = true })
 
       vim.keymap.set({ "n", "t" }, "<C-->", function()
-        vim.cmd "resize -5"
+        vim.cmd "resize -1"
       end, { noremap = true, silent = true })
     end,
   },
