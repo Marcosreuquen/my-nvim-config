@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-	theme = "onedark",
+	theme = "tokyonight",
   transparency = true,
 	hl_override = {
 	  Comment = { italic = true },
@@ -19,17 +19,15 @@ local stl = require "custom.statusline"
 M.ui = {
   statusline = {
     theme = "default",
-    separator_style = "round",
+    sep_style = "arrow",
 
     order = {
-      "mode", "project_name", "file", "git_status",
-      "%=", "lsp_msg", "%=",
-      "term_info", "lang_versions", "diagnostics", "lsp", "cursor",
+    "mode", "file", 'git',
+    "%=", "lsp_msg", "%=",
+    "term_info", "lang_versions", "diagnostics", "lsp", "cursor",
     },
 
     modules = {
-      project_name  = stl.project_name,
-      git_status    = stl.git_status,
       lang_versions = stl.language_versions,
       term_info     = stl.term_info,
     },

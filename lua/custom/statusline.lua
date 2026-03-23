@@ -4,14 +4,14 @@ local M = {}
 local lang_cache = { cwd = "", langs = {} }
 
 local markers = {
-  { file = "package.json",     cmd = "node -v",            icon = " ", name = "Node" },
-  { file = "requirements.txt", cmd = "python3 -V",         icon = " ", name = "Py",   parse = "Python (.+)" },
-  { file = "pyproject.toml",   cmd = "python3 -V",         icon = " ", name = "Py",   parse = "Python (.+)" },
-  { file = "Pipfile",          cmd = "python3 -V",         icon = " ", name = "Py",   parse = "Python (.+)" },
-  { file = "go.mod",           cmd = "go version",         icon = " ", name = "Go",   parse = "go(%S+)" },
-  { file = "Cargo.toml",       cmd = "rustc --version",    icon = " ", name = "Rs",   parse = "rustc (%S+)" },
-  { file = "Gemfile",          cmd = "ruby -v",            icon = " ", name = "Rb",   parse = "ruby (%S+)" },
-  { file = "mix.exs",          cmd = "elixir -v",          icon = " ", name = "Ex",   parse = "Elixir (%S+)" },
+  { file = "package.json",     cmd = "node -v",            codepoint = 0xE718,  name = "Node" },
+  { file = "requirements.txt", cmd = "python3 -V",         codepoint = 0xE73C,  name = "Py",   parse = "Python (.+)" },
+  { file = "pyproject.toml",   cmd = "python3 -V",         codepoint = 0xE73C,  name = "Py",   parse = "Python (.+)" },
+  { file = "Pipfile",          cmd = "python3 -V",         codepoint = 0xE73C,  name = "Py",   parse = "Python (.+)" },
+  { file = "go.mod",           cmd = "go version",         codepoint = 0xE626,  name = "Go",   parse = "go(%S+)" },
+  { file = "Cargo.toml",       cmd = "rustc --version",    codepoint = 0xE7A8,  name = "Rs",   parse = "rustc (%S+)" },
+  { file = "Gemfile",          cmd = "ruby -v",            codepoint = 0xE739,  name = "Rb",   parse = "ruby (%S+)" },
+  { file = "mix.exs",          cmd = "elixir -v",          codepoint = 0xE62D,  name = "Ex",   parse = "Elixir (%S+)" },
 }
 
 local function detect_langs()
@@ -30,7 +30,11 @@ local function detect_langs()
       if vim.v.shell_error == 0 and raw ~= "" then
         local ver = m.parse and raw:match(m.parse) or raw
         if ver then
-          table.insert(results, { icon = m.icon, name = m.name, ver = ver })
+          table.insert(results, {
+            icon = vim.fn.nr2char(m.codepoint),
+            name = m.name,
+            ver = ver,
+          })
         end
       end
     end
@@ -44,83 +48,68 @@ vim.api.nvim_create_autocmd({ "DirChanged", "VimEnter" }, {
   callback = function() lang_cache = { cwd = "", langs = {} } end,
 })
 
--- ── Helper: get statusline bg ─────────────────────────────────────
+-- ── Helpers ───────────────────────────────────────────────────────
 
-local function get_stl_bg()
-  local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = "StatusLine", link = false })
-  if ok and hl and hl.bg then
-    return string.format("#%06x", hl.bg)
+local function hl_attr(group, attr)
+  local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group, link = false })
+  if ok and hl and hl[attr] then
+    return string.format("#%06x", hl[attr])
   end
-  return "NONE"
+  return nil
 end
 
+-- Generate special chars at runtime to avoid encoding issues in source file
+-- 0xE0B2 / 0xE0B0 = classic powerline diagonal triangles (NvChad "default")
+local sep_l = vim.fn.nr2char(0xE0B2)       -- left-pointing diagonal
+local sep_r = vim.fn.nr2char(0xE0B00)       -- right-pointing diagonal
+
 -- ── Statusline Modules ────────────────────────────────────────────
+
+function M.project_name()
+  local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+  return "%#StProjectName# " .. icon_folder .. " " .. cwd .. " %#StProjectSep#" .. sep_r
+end
 
 function M.language_versions()
   local langs = detect_langs()
   if #langs == 0 then return "" end
   local parts = {}
   for _, l in ipairs(langs) do
-    table.insert(parts, l.icon .. l.ver)
+    table.insert(parts, l.icon .. " " .. l.ver)
   end
-  return "%#StLangVersions#  " .. table.concat(parts, "  ") .. " "
+  return "%#StLangSep#" .. sep_l .. "%#StLangVersions# " .. table.concat(parts, "  ") .. " "
 end
 
-function M.project_name()
-  local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-  return "%#StProjectName# 󰉋 " .. cwd .. " "
-end
-
-function M.git_status()
-  local status = vim.b.gitsigns_status_dict
-  if not status or not status.head or status.head == "" then
-    local branch = vim.fn.system("git -C " .. vim.fn.getcwd() .. " branch --show-current 2>/dev/null"):gsub("%s+$", "")
-    if vim.v.shell_error ~= 0 or branch == "" then
-      return ""
-    end
-    return "%#StGitBranch#  " .. branch .. " "
-  end
-
-  local parts = { "%#StGitBranch#  " .. status.head }
-
-  local added = status.added or 0
-  local changed = status.changed or 0
-  local removed = status.removed or 0
-
-  if added > 0 then
-    table.insert(parts, "%#StGitAdd# +" .. added)
-  end
-  if changed > 0 then
-    table.insert(parts, "%#StGitChange# ~" .. changed)
-  end
-  if removed > 0 then
-    table.insert(parts, "%#StGitRemove# -" .. removed)
-  end
-
-  return table.concat(parts, "") .. " "
-end
 
 function M.term_info()
   local ok, tabs = pcall(function()
     return require("custom.term_tabs").get_status()
   end)
   if not ok or not tabs then return "" end
-  return "%#StTermInfo# >_ " .. tabs.current .. "/" .. tabs.total .. " "
+  return "%#StTermSep#" .. sep_l .. "%#StTermInfo# >_ " .. tabs.current .. "/" .. tabs.total .. " "
 end
 
 -- ── Highlight Groups ──────────────────────────────────────────────
 
 function M.setup_highlights()
   local set = vim.api.nvim_set_hl
-  local bg = get_stl_bg()
 
-  set(0, "StProjectName", { fg = "#e5c07b", bg = bg, bold = true })
-  set(0, "StGitBranch",   { fg = "#c678dd", bg = bg, bold = true })
-  set(0, "StGitAdd",      { fg = "#98c379", bg = bg })
-  set(0, "StGitChange",   { fg = "#e5c07b", bg = bg })
-  set(0, "StGitRemove",   { fg = "#e06c75", bg = bg })
-  set(0, "StLangVersions",{ fg = "#56b6c2", bg = bg })
-  set(0, "StTermInfo",    { fg = "#61afef", bg = bg, bold = true })
+  -- Pull the real bg from NvChad's St_file section (always has a bg even
+  -- with transparency) and fall back to a sensible tokyonight dark tone.
+  local stl_bg     = hl_attr("StatusLine", "bg") or "NONE"
+  local section_bg = hl_attr("St_file", "bg") or "#292e42"
+
+  -- Project name — warm muted gold, closes right with diagonal sep
+  set(0, "StProjectName",  { fg = "#e0af68", bg = section_bg, bold = true })
+  set(0, "StProjectSep",   { fg = section_bg, bg = stl_bg })
+
+  -- Language versions — soft cyan, opens left with diagonal sep
+  set(0, "StLangVersions", { fg = "#7dcfff", bg = section_bg })
+  set(0, "StLangSep",      { fg = section_bg, bg = stl_bg })
+
+  -- Terminal info — soft blue, opens left with diagonal sep
+  set(0, "StTermInfo",     { fg = "#7aa2f7", bg = section_bg, bold = true })
+  set(0, "StTermSep",      { fg = section_bg, bg = stl_bg })
 end
 
 vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
