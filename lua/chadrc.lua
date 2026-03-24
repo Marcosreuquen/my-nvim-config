@@ -24,12 +24,13 @@ M.ui = {
     order = {
     "mode", "file", 'git',
     "%=", "lsp_msg", "%=",
-    "term_info", "lang_versions", "diagnostics", "lsp", "cursor",
+    "copilot_hint", "term_info", "lang_versions", "diagnostics", "lsp", "cursor",
     },
 
     modules = {
       lang_versions = stl.language_versions,
       term_info     = stl.term_info,
+      copilot_hint  = stl.copilot_hint,
     },
   },
 }

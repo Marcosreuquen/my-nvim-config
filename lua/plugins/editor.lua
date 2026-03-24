@@ -1,17 +1,29 @@
 return {
   {
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
+    event = "BufWritePre",
+    cmd = { "ConformInfo" },
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },
-        -- css = { "prettier" },
-        -- html = { "prettier" },
+        javascript = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescript = { "prettier" },
+        typescriptreact = { "prettier" },
+        vue = { "prettier" },
+        css = { "prettier" },
+        html = { "prettier" },
+        json = { "prettier" },
+        yaml = { "prettier" },
+        markdown = { "prettier" },
+        python = { "black" },
+        sh = { "shfmt" },
+        bash = { "shfmt" },
       },
-      -- format_on_save = {
-      --   timeout_ms = 500,
-      --   lsp_fallback = true,
-      -- },
+      format_on_save = {
+        timeout_ms = 2000,
+        lsp_fallback = true,
+      },
     },
   },
   {

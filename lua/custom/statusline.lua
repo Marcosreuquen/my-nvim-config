@@ -61,7 +61,7 @@ end
 -- Generate special chars at runtime to avoid encoding issues in source file
 -- 0xE0B2 / 0xE0B0 = classic powerline diagonal triangles (NvChad "default")
 local sep_l = vim.fn.nr2char(0xE0B2)       -- left-pointing diagonal
-local sep_r = vim.fn.nr2char(0xE0B00)       -- right-pointing diagonal
+local sep_r = vim.fn.nr2char(0xE0B0)        -- right-pointing diagonal
 
 -- ── Statusline Modules ────────────────────────────────────────────
 
@@ -77,7 +77,7 @@ function M.language_versions()
   for _, l in ipairs(langs) do
     table.insert(parts, l.icon .. " " .. l.ver)
   end
-  return "%#StLangSep#" .. sep_l .. "%#StLangVersions# " .. table.concat(parts, "  ") .. " "
+  return "%#StLangSep#" .. sep_l .. "%#StLangVersions# " .. table.concat(parts, "  ") .. " %#StLangSepR#" .. sep_r
 end
 
 
@@ -86,7 +86,15 @@ function M.term_info()
     return require("custom.term_tabs").get_status()
   end)
   if not ok or not tabs then return "" end
-  return "%#StTermSep#" .. sep_l .. "%#StTermInfo# >_ " .. tabs.current .. "/" .. tabs.total .. " "
+  return "%#StTermSep#" .. sep_l .. "%#StTermInfo# >_ " .. tabs.current .. "/" .. tabs.total .. " %#StTermSepR#" .. sep_r
+end
+
+function M.copilot_hint()
+  local ok, suggestion = pcall(require, "copilot.suggestion")
+  if ok and suggestion.is_visible() then
+    return "%#StCopilotSep#" .. sep_l .. "%#StCopilotHint#  ⌥L accept %#StCopilotSepR#" .. sep_r
+  end
+  return ""
 end
 
 -- ── Highlight Groups ──────────────────────────────────────────────
@@ -103,13 +111,20 @@ function M.setup_highlights()
   set(0, "StProjectName",  { fg = "#e0af68", bg = section_bg, bold = true })
   set(0, "StProjectSep",   { fg = section_bg, bg = stl_bg })
 
-  -- Language versions — soft cyan, opens left with diagonal sep
+  -- Language versions — soft cyan
   set(0, "StLangVersions", { fg = "#7dcfff", bg = section_bg })
   set(0, "StLangSep",      { fg = section_bg, bg = stl_bg })
+  set(0, "StLangSepR",     { fg = section_bg, bg = stl_bg })
 
-  -- Terminal info — soft blue, opens left with diagonal sep
+  -- Terminal info — soft blue
   set(0, "StTermInfo",     { fg = "#7aa2f7", bg = section_bg, bold = true })
   set(0, "StTermSep",      { fg = section_bg, bg = stl_bg })
+  set(0, "StTermSepR",     { fg = section_bg, bg = stl_bg })
+
+  -- Copilot hint — green accent
+  set(0, "StCopilotHint",  { fg = "#9ece6a", bg = section_bg, bold = true })
+  set(0, "StCopilotSep",   { fg = section_bg, bg = stl_bg })
+  set(0, "StCopilotSepR",  { fg = section_bg, bg = stl_bg })
 end
 
 vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
