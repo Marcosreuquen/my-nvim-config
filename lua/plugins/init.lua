@@ -3,5 +3,6 @@
 --   editor.lua   → conform, nvim-tree
 --   ui.lua       → devicons, render-markdown, neo-tree
 --   terminal.lua → toggleterm
---   lsp.lua      → LSP servers
+--   lsp.lua      → LSP server configurations
+--   mason.lua    → Mason installer + mason-lspconfig
 return {}
