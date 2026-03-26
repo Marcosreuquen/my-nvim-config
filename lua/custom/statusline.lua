@@ -4,14 +4,14 @@ local M = {}
 local lang_cache = { cwd = "", langs = {} }
 
 local markers = {
-  { file = "package.json",     cmd = "node -v",            codepoint = 0xE718,  name = "Node" },
-  { file = "requirements.txt", cmd = "python3 -V",         codepoint = 0xE73C,  name = "Py",   parse = "Python (.+)" },
-  { file = "pyproject.toml",   cmd = "python3 -V",         codepoint = 0xE73C,  name = "Py",   parse = "Python (.+)" },
-  { file = "Pipfile",          cmd = "python3 -V",         codepoint = 0xE73C,  name = "Py",   parse = "Python (.+)" },
-  { file = "go.mod",           cmd = "go version",         codepoint = 0xE626,  name = "Go",   parse = "go(%S+)" },
-  { file = "Cargo.toml",       cmd = "rustc --version",    codepoint = 0xE7A8,  name = "Rs",   parse = "rustc (%S+)" },
-  { file = "Gemfile",          cmd = "ruby -v",            codepoint = 0xE739,  name = "Rb",   parse = "ruby (%S+)" },
-  { file = "mix.exs",          cmd = "elixir -v",          codepoint = 0xE62D,  name = "Ex",   parse = "Elixir (%S+)" },
+  { file = "package.json",     cmd = "node -v",         codepoint = 0xE718, name = "Node" },
+  { file = "requirements.txt", cmd = "python3 -V",      codepoint = 0xE73C, name = "Py",  parse = "Python (.+)" },
+  { file = "pyproject.toml",   cmd = "python3 -V",      codepoint = 0xE73C, name = "Py",  parse = "Python (.+)" },
+  { file = "Pipfile",          cmd = "python3 -V",      codepoint = 0xE73C, name = "Py",  parse = "Python (.+)" },
+  { file = "go.mod",           cmd = "go version",      codepoint = 0xE626, name = "Go",  parse = "go(%S+)" },
+  { file = "Cargo.toml",       cmd = "rustc --version", codepoint = 0xE7A8, name = "Rs",  parse = "rustc (%S+)" },
+  { file = "Gemfile",          cmd = "ruby -v",         codepoint = 0xE739, name = "Rb",  parse = "ruby (%S+)" },
+  { file = "mix.exs",          cmd = "elixir -v",       codepoint = 0xE62D, name = "Ex",  parse = "Elixir (%S+)" },
 }
 
 local function detect_langs()
@@ -60,8 +60,8 @@ end
 
 -- Generate special chars at runtime to avoid encoding issues in source file
 -- 0xE0B2 / 0xE0B0 = classic powerline diagonal triangles (NvChad "default")
-local sep_l = vim.fn.nr2char(0xE0B2)       -- left-pointing diagonal
-local sep_r = vim.fn.nr2char(0xE0B0)        -- right-pointing diagonal
+local sep_l = "" --vim.fn.nr2char(0xE0B2) -- left-pointing diagonal
+local sep_r = "" --vim.fn.nr2char(0xE0B0) -- right-pointing diagonal
 
 -- ── Statusline Modules ────────────────────────────────────────────
 
@@ -79,7 +79,6 @@ function M.language_versions()
   end
   return "%#StLangSep#" .. sep_l .. "%#StLangVersions# " .. table.concat(parts, "  ") .. " %#StLangSepR#" .. sep_r
 end
-
 
 function M.term_info()
   local ok, tabs = pcall(function()
@@ -100,7 +99,7 @@ end
 -- ── Highlight Groups ──────────────────────────────────────────────
 
 function M.setup_highlights()
-  local set = vim.api.nvim_set_hl
+  local set        = vim.api.nvim_set_hl
 
   -- Pull the real bg from NvChad's St_file section (always has a bg even
   -- with transparency) and fall back to a sensible tokyonight dark tone.
@@ -108,23 +107,23 @@ function M.setup_highlights()
   local section_bg = hl_attr("St_file", "bg") or "#292e42"
 
   -- Project name — warm muted gold, closes right with diagonal sep
-  set(0, "StProjectName",  { fg = "#e0af68", bg = section_bg, bold = true })
-  set(0, "StProjectSep",   { fg = section_bg, bg = stl_bg })
+  set(0, "StProjectName", { fg = "#e0af68", bg = section_bg, bold = true })
+  set(0, "StProjectSep", { fg = section_bg, bg = stl_bg })
 
   -- Language versions — soft cyan
   set(0, "StLangVersions", { fg = "#7dcfff", bg = section_bg })
-  set(0, "StLangSep",      { fg = section_bg, bg = stl_bg })
-  set(0, "StLangSepR",     { fg = section_bg, bg = stl_bg })
+  set(0, "StLangSep", { fg = section_bg, bg = stl_bg })
+  set(0, "StLangSepR", { fg = section_bg, bg = stl_bg })
 
   -- Terminal info — soft blue
-  set(0, "StTermInfo",     { fg = "#7aa2f7", bg = section_bg, bold = true })
-  set(0, "StTermSep",      { fg = section_bg, bg = stl_bg })
-  set(0, "StTermSepR",     { fg = section_bg, bg = stl_bg })
+  set(0, "StTermInfo", { fg = "#7aa2f7", bg = section_bg, bold = true })
+  set(0, "StTermSep", { fg = section_bg, bg = stl_bg })
+  set(0, "StTermSepR", { fg = section_bg, bg = stl_bg })
 
   -- Copilot hint — green accent
-  set(0, "StCopilotHint",  { fg = "#9ece6a", bg = section_bg, bold = true })
-  set(0, "StCopilotSep",   { fg = section_bg, bg = stl_bg })
-  set(0, "StCopilotSepR",  { fg = section_bg, bg = stl_bg })
+  set(0, "StCopilotHint", { fg = "#9ece6a", bg = section_bg, bold = true })
+  set(0, "StCopilotSep", { fg = section_bg, bg = stl_bg })
+  set(0, "StCopilotSepR", { fg = section_bg, bg = stl_bg })
 end
 
 vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {

@@ -25,6 +25,9 @@ return {
         filetypes = {
           ["*"] = true,
         },
+        server = {
+          type = "binary",
+        }
       })
 
       -- Redraw statusline so the copilot hint stays in sync
