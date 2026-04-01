@@ -11,13 +11,21 @@ return {
     opts = {
       filesystem = {
         filtered_items = {
-          visible = true, -- This is needed to show filtered items
+          visible = true,
           hide_dotfiles = false,
           hide_gitignored = false,
-          hide_hidden = false, -- only works on Windows for hidden files/folders
-        }
-      }
-    }
+          hide_hidden = false,
+        },
+        window = {
+          mappings = {
+            ["<Delete>"] = "noop",
+          },
+        },
+      },
+    },
+    keys = {
+      { "<Delete>", "<Nop>", mode = "n", desc = "Disable delete in neotree" },
+    },
   },
 }
 

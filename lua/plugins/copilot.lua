@@ -11,12 +11,9 @@ return {
           auto_trigger = true,
           debounce = 75,
           keymap = {
-            accept = "<M-l>",
-            accept_word = "<M-k>",
-            accept_line = "<M-j>",
-            next = "<M-]>",
-            prev = "<M-[>",
-            dismiss = "<C-]>",
+            accept = "<Tab>",
+           accept_line = "<S-Tab>",
+           dismiss = "<A-Tab>",
           },
         },
         panel = {

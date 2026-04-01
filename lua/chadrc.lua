@@ -6,14 +6,22 @@
 local M = {}
 
 M.base46 = {
-  theme = "github_dark",
-  transparency = true,
+  theme = "rose-pine",
+  variant = "moon",
+  dark_variant = "moon",
+  disable_float_background = false,
+  styles = {
+    -- italic = true,
+    bold = true,
+    transparency = true,
+  },
   hl_override = {
     Comment = { italic = true },
     ["@comment"] = { italic = true },
   },
 }
 
+vim.cmd("colorscheme rose-pine")
 M.ui = {
   statusline = {
     enabled = false,

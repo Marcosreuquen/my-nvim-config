@@ -68,6 +68,8 @@ return {
       -- You may want these if you use the opinionated `<C-a>` and `<C-x>` keymaps above — otherwise consider `<leader>o…` (and remove terminal mode from the `toggle` keymap)
       vim.keymap.set("n", "+", "<C-a>", { desc = "Increment under cursor", noremap = true })
       vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement under cursor", noremap = true })
+
+      vim.keymap.set("n", "<C-b>", function() require("opencode_sessions").pick_session() end, { desc = "Pick opencode session" })
     end,
   }
 }
