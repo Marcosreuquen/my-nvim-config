@@ -1,5 +1,8 @@
 require "nvchad.mappings"
 
+-- Remove NvChad default that copies entire file on C-c
+vim.keymap.del("n", "<C-c>")
+
 local map = vim.keymap.set
 
 map("n", ";", ":", { desc = "CMD enter command mode" })

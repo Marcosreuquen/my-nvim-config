@@ -14,25 +14,31 @@ M.base46 = {
   },
 }
 
-local stl = require "custom.statusline"
-
 M.ui = {
   statusline = {
-    theme = "default",
-    sep_style = "block",
-
-    order = {
-      "mode", "file", 'git',
-      "%=", "lsp_msg", "%=",
-      "copilot_hint", "term_info", "lang_versions", "diagnostics", "lsp", "cursor",
-    },
-
-    modules = {
-      lang_versions = stl.language_versions,
-      term_info     = stl.term_info,
-      copilot_hint  = stl.copilot_hint,
-    },
+    enabled = false,
   },
 }
+
+-- local stl = require "custom.statusline"
+--
+-- M.ui = {
+--   statusline = {
+--     theme = "default",
+--     sep_style = "block",
+--
+--     order = {
+--       "mode", "file", 'git',
+--       "%=", "lsp_msg", "%=",
+--       "copilot_hint", "term_info", "lang_versions", "diagnostics", "lsp", "cursor",
+--     },
+--
+--     modules = {
+--       lang_versions = stl.language_versions,
+--       term_info     = stl.term_info,
+--       copilot_hint  = stl.copilot_hint,
+--     },
+--   },
+-- }
 
 return M
