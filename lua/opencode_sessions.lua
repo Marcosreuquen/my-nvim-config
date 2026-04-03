@@ -53,8 +53,20 @@ function M.pick_session()
     if item then
       vim.g.opencode_last_session = item.session_id
       vim.g.opencode_last_session_title = item.title
-      require("opencode").ask("", { session_id = item.session_id, submit = false })
-      require("opencode").toggle()
+
+      local terminal = require("snacks.terminal")
+      local cmd = "opencode --port 54403 --session " .. item.session_id
+      local snacks_terminal_opts = {
+        win = {
+          position = "right",
+          enter = false,
+          on_win = function(win)
+            require("opencode.terminal").setup(win.win)
+          end,
+        },
+      }
+
+      terminal.toggle(cmd, snacks_terminal_opts)
     end
   end)
 end
