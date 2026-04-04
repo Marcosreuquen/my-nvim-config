@@ -31,6 +31,8 @@ return {
         foldlevelstart = 99,
         -- Rounded borders on all floating windows
         winborder = "rounded",
+        -- Allow h/l to wrap to previous/next line
+        whichwrap = "b,s,<,>,h,l,[,]",
       },
       g = {},
     },
@@ -52,6 +54,21 @@ return {
         -- Buffer navigation (AstroNvim style)
         ["]b"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         ["[b"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
+        ["<Tab>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
+        ["<S-Tab>"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
+
+        -- Close buffer, or close window if last buffer
+        ["<Leader>q"] = {
+          function()
+            local bufs = vim.fn.getbufinfo { buflisted = 1 }
+            if #bufs <= 1 then
+              vim.cmd "q"
+            else
+              require("astrocore.buffer").close(0)
+            end
+          end,
+          desc = "Close buffer (or window if last)",
+        },
 
         -- Close buffer from tabline
         ["<Leader>bd"] = {

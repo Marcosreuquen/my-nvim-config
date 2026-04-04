@@ -18,7 +18,7 @@ return {
         json = { "prettier" },
         yaml = { "prettier" },
         markdown = { "prettier" },
-        python = { "black" },
+        -- python formatters (black, isort) come from astrocommunity.pack.python
         sh = { "shfmt" },
         bash = { "shfmt" },
       },

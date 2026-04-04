@@ -1,77 +1,40 @@
--- nvim-cmp: autocompletion customization
+-- Completion: customize blink.cmp (AstroNvim's default engine)
+-- and disable nvim-cmp which was leftover from NvChad migration
 ---@type LazySpec
 return {
+  -- Disable nvim-cmp and all its sources (blink.cmp is the completion engine)
+  { "hrsh7th/nvim-cmp", enabled = false },
+  { "hrsh7th/cmp-nvim-lsp", enabled = false },
+  { "hrsh7th/cmp-buffer", enabled = false },
+  { "hrsh7th/cmp-path", enabled = false },
+  { "hrsh7th/cmp-nvim-lsp-signature-help", enabled = false },
+  { "saadparwaiz1/cmp_luasnip", enabled = false },
+
+  -- Customize blink.cmp
   {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-      "onsails/lspkind.nvim",
+    "saghen/blink.cmp",
+    opts = {
+      completion = {
+        list = { selection = { preselect = false, auto_insert = false } },
+      },
+      signature = { enabled = true },
+      keymap = {
+        -- CR only accepts if an item is explicitly selected, otherwise newline
+        ["<CR>"] = { "accept", "fallback" },
+        -- S-Tab: prev item in menu, or accept Copilot if visible, or fallback
+        ["<S-Tab>"] = {
+          "select_prev",
+          "snippet_backward",
+          function()
+            local ok, suggestion = pcall(require, "copilot.suggestion")
+            if ok and suggestion.is_visible() then
+              suggestion.accept()
+              return true -- handled
+            end
+          end,
+          "fallback",
+        },
+      },
     },
-    opts = function(_, opts)
-      local cmp = require "cmp"
-      local luasnip = require "luasnip"
-      local lspkind = require "lspkind"
-
-      -- Hide copilot ghost text while cmp menu is open
-      cmp.event:on("menu_opened", function() vim.b.copilot_suggestion_hidden = true end)
-      cmp.event:on("menu_closed", function() vim.b.copilot_suggestion_hidden = false end)
-
-      return require("astrocore").extend_tbl(opts, {
-        snippet = {
-          expand = function(args) luasnip.lsp_expand(args.body) end,
-        },
-        window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
-        },
-        formatting = {
-          format = lspkind.cmp_format({
-            mode = "symbol_text",
-            maxwidth = 50,
-            ellipsis_char = "...",
-          }),
-        },
-        mapping = cmp.mapping.preset.insert({
-          ["<C-k>"] = cmp.mapping.select_prev_item(),
-          ["<C-j>"] = cmp.mapping.select_next_item(),
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm { select = true },
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-        }),
-        sources = cmp.config.sources({
-          { name = "nvim_lsp", priority = 1000 },
-          { name = "luasnip", priority = 750 },
-          { name = "nvim_lsp_signature_help", priority = 500 },
-          { name = "path", priority = 250 },
-        }, {
-          { name = "buffer", keyword_length = 3 },
-        }),
-      })
-    end,
   },
 }

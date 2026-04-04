@@ -1,23 +1,15 @@
--- Mason tool installer: LSP servers, formatters, linters
+-- Mason tool installer: extra tools not covered by AstroCommunity packs
+-- Community packs already install: lua-language-server, stylua, selene, vtsls,
+-- vue-language-server, basedpyright, black, isort, bash-language-server,
+-- shellcheck, shfmt, debugpy, js-debug-adapter, bash-debug-adapter
 ---@type LazySpec
 return {
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     opts = {
       ensure_installed = {
-        -- LSP servers
-        "lua-language-server",
         "eslint-lsp",
-        "typescript-language-server",
-        "vue-language-server",
-        "pyright",
-        "bash-language-server",
-        -- Formatters
-        "stylua",
         "prettier",
-        "black",
-        "shfmt",
-        -- Other tools
         "tree-sitter-cli",
       },
     },

@@ -1,33 +1,36 @@
--- Lualine: statusline (replaces AstroNvim's default heirline)
+-- Heirline: extend default AstroNvim statusline with OpenCode status
 ---@type LazySpec
 return {
-  -- Disable AstroNvim's default heirline statusline
-  { "rebelot/heirline.nvim", optional = true, opts = function(_, opts) opts.statusline = nil end },
   {
-    "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-    },
-    config = function()
-      local lsp = {
-        "lsp_status",
-        color = { gui = "bold" },
-        icon = " ",
-        separator = { left = "", right = "" },
-      }
+    "rebelot/heirline.nvim",
+    opts = function(_, opts)
+      local status = require "astroui.status"
 
-      require("lualine").setup {
-        options = {
-          theme = "nightfly",
-          section_separators = { left = "", right = "" },
-          component_separators = { left = "", right = "" },
-        },
-        sections = {
-          lualine_z = {
-            lsp,
-            { require("opencode").statusline, separator = { left = "", right = "" } },
+      opts.statusline = {
+        hl = { fg = "fg", bg = "bg" },
+        status.component.mode(),
+        status.component.git_branch(),
+        status.component.file_info(),
+        status.component.git_diff(),
+        status.component.diagnostics(),
+        status.component.fill(),
+        status.component.cmd_info(),
+        status.component.fill(),
+        status.component.lsp(),
+        status.component.virtual_env(),
+        status.component.treesitter(),
+        status.component.nav(),
+        -- OpenCode statusline component
+        status.component.builder {
+          {
+            provider = function()
+              local ok, opencode = pcall(require, "opencode")
+              if ok and opencode.statusline then return opencode.statusline() end
+              return ""
+            end,
           },
+          surround = { separator = "right", color = status.hl.mode_bg },
+          hl = status.hl.get_attributes "mode",
         },
       }
     end,

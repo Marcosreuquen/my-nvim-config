@@ -4,11 +4,13 @@ return {
   "AstroNvim/astroui",
   ---@type AstroUIOpts
   opts = {
-    colorscheme = "github_dark",
+    colorscheme = "astrodark",
     highlights = {
       init = {
         Comment = { italic = true },
         ["@comment"] = { italic = true },
+        -- Copilot ghost text: dim so it's clearly distinguishable
+        CopilotSuggestion = { fg = "#555555", italic = true },
       },
     },
     icons = {

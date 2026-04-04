@@ -1,157 +1,155 @@
-# Keymaps Cheatsheet: NvChad -> AstroNvim
+# Keymaps Cheatsheet
 
-Guia rapida de las acciones mas comunes y como hacerlas en AstroNvim.
 `<Leader>` = `Space`
 
-## Navegacion de archivos
+> **Tip**: Presiona `<Space>` y espera un segundo para ver el menu completo de which-key.
 
-| Accion | Antes (NvChad) | Ahora (AstroNvim) |
-|---|---|---|
-| Toggle file explorer | `<C-n>` | `<Leader>e` |
-| Focus file explorer | `<C-n>` | `<Leader>o` |
-| Buscar archivos | `<Leader>ff` | `<Leader>ff` (igual) |
-| Buscar archivos (ocultos) | -- | `<Leader>fF` |
-| Buscar texto (live grep) | `<Leader>fw` | `<Leader>fw` (igual) |
-| Archivos recientes | `<Leader>fo` | `<Leader>fo` (igual) |
-| Buscar en buffers abiertos | `<Leader>fb` | `<Leader>fb` (igual) |
-| Smart open (buffers+recent+files) | -- | `<Leader>fs` |
-
-## Buffers (tabs)
-
-| Accion | Antes (NvChad) | Ahora (AstroNvim) |
-|---|---|---|
-| Siguiente buffer | `<Tab>` | `]b` |
-| Buffer anterior | `<S-Tab>` | `[b` |
-| Cerrar buffer | `<Leader>x` | `<Leader>c` |
-| Cerrar buffer (picker) | -- | `<Leader>bd` |
-| Cerrar todos menos actual | -- | `<Leader>bc` |
-| Cerrar todos | -- | `<Leader>bC` |
-| Mover buffer a la derecha | -- | `>b` |
-| Mover buffer a la izquierda | -- | `<b` |
-| Ir a buffer por picker | -- | `<Leader>bb` |
-
-## Vim Tabs (real tabs, no buffers)
-
-| Accion | Antes (NvChad) | Ahora (AstroNvim) |
-|---|---|---|
-| Siguiente tab | -- | `]t` |
-| Tab anterior | -- | `[t` |
-
-## Ventanas / Splits
-
-| Accion | Antes (NvChad) | Ahora (AstroNvim) |
-|---|---|---|
-| Split horizontal | -- | `\` |
-| Split vertical | -- | `\|` |
-| Mover a ventana arriba | `<C-k>` | `<C-k>` (igual) |
-| Mover a ventana abajo | `<C-j>` | `<C-j>` (igual) |
-| Mover a ventana izquierda | `<C-h>` | `<C-h>` (igual) |
-| Mover a ventana derecha | `<C-l>` | `<C-l>` (igual) |
-| Resize arriba | `<C-Up>` | `<C-Up>` (igual) |
-| Resize abajo | `<C-Down>` | `<C-Down>` (igual) |
-
-## LSP
-
-| Accion | Antes (NvChad) | Ahora (AstroNvim) |
-|---|---|---|
-| Go to definition | `gd` | `gd` (igual) |
-| Go to references | `gr` | `grr` o `<Leader>lR` |
-| Go to implementation | `gi` | `gri` |
-| Go to declaration | `gD` | `gD` (igual) |
-| Go to type definition | -- | `gy` |
-| Hover info | `K` | `K` (igual) |
-| Code actions | `<Leader>ca` | `gra` o `<Leader>la` |
-| Rename symbol | `<Leader>ra` | `grn` o `<Leader>lr` |
-| Format documento | `:Format` | `<Leader>lf` o `:Format` |
-| Signature help | automatico al tipear | automatico al tipear (igual) |
-| Line diagnostics | -- | `gl` o `<Leader>ld` |
-| Next diagnostic | `]d` | `]d` (igual) |
-| Prev diagnostic | `[d` | `[d` (igual) |
-| Next error | -- | `]e` |
-| Prev error | -- | `[e` |
-| Document symbols | -- | `<Leader>ls` |
-| LSP Info | -- | `<Leader>li` |
-
-## Autocompletado (nvim-cmp)
-
-| Accion | Antes (NvChad) | Ahora (AstroNvim) |
-|---|---|---|
-| Abrir menu | `<C-Space>` | `<C-Space>` (igual) |
-| Confirmar seleccion | `<CR>` | `<CR>` (igual) |
-| Siguiente item | `<C-j>` o `<Tab>` | `<C-j>` o `<Tab>` (igual) |
-| Item anterior | `<C-k>` o `<S-Tab>` | `<C-k>` o `<S-Tab>` (igual) |
-| Scroll docs arriba | `<C-b>` | `<C-b>` (igual) |
-| Scroll docs abajo | `<C-f>` | `<C-f>` (igual) |
-| Cancelar | `<C-e>` | `<C-e>` (igual) |
-
-## Terminal (ToggleTerm custom)
-
-| Accion | Antes (NvChad) | Ahora (AstroNvim) |
-|---|---|---|
-| Toggle terminal | `<C-t>` | `<C-t>` (igual) |
-| Nueva terminal tab | `<A-t>` | `<A-t>` (igual) |
-| Cerrar terminal tab | `<A-w>` | `<A-w>` (igual) |
-| Siguiente terminal | `<A-l>` | `<A-l>` (igual) |
-| Terminal anterior | `<A-h>` | `<A-h>` (igual) |
-| Salir de terminal mode | `<C-q>` | `<C-q>` (igual) |
-| Resize terminal + | `<C-=>` | `<C-=>` (igual) |
-| Resize terminal - | `<C-->` | `<C-->` (igual) |
-| Float terminal (AstroNvim) | -- | `<Leader>tf` |
-| Horizontal terminal (AstroNvim) | -- | `<Leader>th` |
-| Vertical terminal (AstroNvim) | -- | `<Leader>tv` |
-| Lazygit | -- | `<Leader>tl` |
-
-## Copilot
-
-| Accion | Antes (NvChad) | Ahora (AstroNvim) |
-|---|---|---|
-| Aceptar sugerencia | `<Tab>` | `<Tab>` (igual) |
-| Aceptar linea | `<S-Tab>` | `<S-Tab>` (igual) |
-| Descartar | `<A-Tab>` | `<A-Tab>` (igual) |
-
-## OpenCode AI
-
-| Accion | Antes (NvChad) | Ahora (AstroNvim) |
-|---|---|---|
-| Ask AI (temp) | `<C-a>` | `<C-a>` (igual) |
-| Execute action | `<C-x>` | `<C-x>` (igual) |
-| Toggle opencode | `<C-.>` | `<C-.>` (igual) |
-| Add to context | `go` | `go` (igual) |
-| Add line to context | `goo` | `goo` (igual) |
-| Scroll up | `<S-C-u>` | `<S-C-u>` (igual) |
-| Scroll down | `<S-C-d>` | `<S-C-d>` (igual) |
-| Session picker | `<C-b>` | `<C-b>` (igual) |
-
-## TODO Comments
-
-| Accion | Antes (NvChad) | Ahora (AstroNvim) |
-|---|---|---|
-| Siguiente TODO | `]t` | `]T` (cambio: `]t` es vim tabs) |
-| TODO anterior | `[t` | `[T` (cambio: `[t` es vim tabs) |
-| Buscar TODOs | `<Leader>st` | `<Leader>st` (igual) |
-
-## Comentarios
-
-| Accion | Antes (NvChad) | Ahora (AstroNvim) |
-|---|---|---|
-| Toggle comment linea | `<Leader>/` | `<Leader>/` (igual) |
-| Insertar comment abajo | -- | `gco` |
-| Insertar comment arriba | -- | `gcO` |
+---
 
 ## General
 
-| Accion | Antes (NvChad) | Ahora (AstroNvim) |
-|---|---|---|
-| Enter command mode | `;` | `;` (igual) |
-| Exit insert mode | `jk` | `jk` (igual, AstroNvim tambien tiene `jj`) |
-| Undo | `<C-z>` | `<C-z>` (igual) |
-| Guardar | `<C-s>` | `<C-s>` (igual) |
-| Quit | `<C-q>` (en normal) | `<C-q>` (igual) |
-| Nuevo archivo | -- | `<Leader>n` |
-| Renombrar archivo | -- | `<Leader>R` |
-| Which-key help | `<Leader>` (esperar) | `<Leader>` (esperar, igual) |
+| Accion | Keymap |
+|---|---|
+| Enter command mode | `;` |
+| Exit insert mode | `jk` / `jj` |
+| Undo | `<C-z>` |
+| Guardar | `<C-s>` |
+| Quit | `<C-q>` |
+| Nuevo archivo | `<Leader>n` |
+| Renombrar archivo | `<Leader>R` |
+| Toggle comment linea | `<Leader>/` |
+| Insertar comment abajo | `gco` |
+| Insertar comment arriba | `gcO` |
 
-## Pickers (Telescope/Snacks) - Nuevos en AstroNvim
+## Navegacion de archivos
+
+| Accion | Keymap |
+|---|---|
+| Toggle file explorer | `<Leader>e` |
+| Focus file explorer | `<Leader>o` |
+| Buscar archivos | `<Leader>ff` |
+| Buscar archivos (ocultos) | `<Leader>fF` |
+| Buscar texto (live grep) | `<Leader>fw` |
+| Archivos recientes | `<Leader>fo` |
+| Buscar en buffers abiertos | `<Leader>fb` |
+| Smart open (buffers+recent+files) | `<Leader>fs` |
+
+## Buffers
+
+| Accion | Keymap |
+|---|---|
+| Siguiente buffer | `]b` |
+| Buffer anterior | `[b` |
+| Cerrar buffer | `<Leader>c` |
+| Cerrar buffer (picker) | `<Leader>bd` |
+| Cerrar todos menos actual | `<Leader>bc` |
+| Cerrar todos | `<Leader>bC` |
+| Mover buffer a la derecha | `>b` |
+| Mover buffer a la izquierda | `<b` |
+| Ir a buffer por picker | `<Leader>bb` |
+
+## Vim Tabs
+
+| Accion | Keymap |
+|---|---|
+| Siguiente tab | `]t` |
+| Tab anterior | `[t` |
+
+## Ventanas / Splits
+
+| Accion | Keymap |
+|---|---|
+| Split horizontal | `\` |
+| Split vertical | `\|` |
+| Mover entre ventanas | `<C-h>` `<C-j>` `<C-k>` `<C-l>` |
+| Resize arriba/abajo | `<C-Up>` / `<C-Down>` |
+
+## LSP
+
+| Accion | Keymap |
+|---|---|
+| Go to definition | `gd` |
+| Go to declaration | `gD` |
+| Go to references | `grr` / `<Leader>lR` |
+| Go to implementation | `gri` |
+| Go to type definition | `gy` |
+| Hover info | `K` |
+| Code actions | `gra` / `<Leader>la` |
+| Rename symbol | `grn` / `<Leader>lr` |
+| Format documento | `<Leader>lf` |
+| Line diagnostics | `gl` / `<Leader>ld` |
+| Next diagnostic | `]d` |
+| Prev diagnostic | `[d` |
+| Next error | `]e` |
+| Prev error | `[e` |
+| Document symbols | `<Leader>ls` |
+| LSP Info | `<Leader>li` |
+| Signature help | automatico al tipear |
+
+## Autocompletado (blink.cmp)
+
+| Accion | Keymap |
+|---|---|
+| Abrir menu | `<C-Space>` |
+| Confirmar seleccion | `<CR>` (si no hay seleccion → newline) |
+| Siguiente item | `<C-j>` / `<Tab>` |
+| Item anterior | `<C-k>` / `<S-Tab>` |
+| Scroll docs arriba | `<C-b>` |
+| Scroll docs abajo | `<C-f>` |
+| Cancelar | `<C-e>` |
+
+## Copilot
+
+| Accion | Keymap |
+|---|---|
+| Aceptar sugerencia | `<Tab>` |
+| Aceptar linea | `<S-Tab>` (tambien prev item en cmp) |
+| Descartar | `<A-Tab>` |
+| Siguiente sugerencia | `<M-]>` |
+| Sugerencia anterior | `<M-[>` |
+
+> Copilot se oculta automaticamente cuando el menu de blink.cmp esta abierto.
+
+## Terminal (ToggleTerm custom con tabs)
+
+| Accion | Keymap |
+|---|---|
+| Toggle terminal activa | `<C-t>` |
+| Nueva terminal tab | `<A-t>` |
+| Cerrar terminal tab | `<A-w>` |
+| Siguiente terminal | `<A-l>` |
+| Terminal anterior | `<A-h>` |
+| Salir de terminal mode | `<C-q>` |
+| Resize terminal + | `<C-=>` |
+| Resize terminal - | `<C-->` |
+| Float terminal | `<Leader>tf` |
+| Horizontal terminal | `<Leader>th` |
+| Vertical terminal | `<Leader>tv` |
+| Lazygit | `<Leader>tl` |
+
+## OpenCode AI
+
+| Accion | Keymap |
+|---|---|
+| Ask AI (temp session, float) | `<C-a>` |
+| Execute action (picker) | `<C-x>` |
+| Toggle opencode panel | `<C-.>` |
+| Add range/file a contexto | `go` (normal + visual) |
+| Add linea a contexto | `goo` |
+| Scroll opencode up | `<S-C-u>` |
+| Scroll opencode down | `<S-C-d>` |
+| Pick session (resumir) | `<C-b>` |
+| Enviar desde Snacks picker | `<A-a>` (en picker input) |
+
+## TODO Comments
+
+| Accion | Keymap |
+|---|---|
+| Siguiente TODO | `]T` |
+| TODO anterior | `[T` |
+| Buscar TODOs | `<Leader>st` |
+
+## Pickers (Snacks/Telescope)
 
 | Accion | Keymap |
 |---|---|
@@ -168,7 +166,7 @@ Guia rapida de las acciones mas comunes y como hacerlas en AstroNvim.
 | Notifications | `<Leader>fn` |
 | Resumir busqueda anterior | `<Leader>f<CR>` |
 
-## Toggles UI (nuevos en AstroNvim)
+## Toggles UI
 
 | Accion | Keymap |
 |---|---|
@@ -186,15 +184,7 @@ Guia rapida de las acciones mas comunes y como hacerlas en AstroNvim.
 | Toggle autopairs | `<Leader>ua` |
 | Toggle autocompletion | `<Leader>uc` |
 
-## Package Management
-
-| Accion | Keymap |
-|---|---|
-| Lazy (plugins) | `<Leader>pi` |
-| Mason (tools) | `<Leader>pm` |
-| Update all | `<Leader>pa` |
-
-## Sessions (AstroNvim built-in)
+## Sessions
 
 | Accion | Keymap |
 |---|---|
@@ -204,6 +194,47 @@ Guia rapida de las acciones mas comunes y como hacerlas en AstroNvim.
 | Load current dir session | `<Leader>S.` |
 | Delete session | `<Leader>Sd` |
 
+## Package Management
+
+| Accion | Keymap |
+|---|---|
+| Lazy (plugins) | `<Leader>pi` |
+| Mason (tools) | `<Leader>pm` |
+| Update all | `<Leader>pa` |
+
 ---
 
-> **Tip**: Presiona `<Space>` y espera un segundo para ver el menu completo de which-key con todas las opciones agrupadas.
+## Comandos personalizados
+
+| Comando | Descripcion |
+|---|---|
+| `:Format` | Formatea buffer o seleccion visual con conform.nvim |
+| `:Eslint` | Ejecuta ESLintFixAll (o en rango visual) |
+| `:NotificationHistory` | Muestra historial de notificaciones (Snacks) |
+| `:ConformInfo` | Info de formatters configurados |
+| `:Copilot` | Gestion de Copilot (status, signout, etc.) |
+
+## Formatters por lenguaje
+
+| Lenguaje | Formatter |
+|---|---|
+| Lua | Stylua |
+| JS/TS/TSX/Vue/HTML/CSS/JSON/YAML/MD | Prettier |
+| Python | black + isort (via astrocommunity) |
+| Bash/Sh | shfmt |
+
+> Format-on-save es **git-hunk-aware**: solo formatea las lineas modificadas en archivos bajo git.
+
+---
+
+## Neo-tree
+
+- Items ocultos visibles por defecto (dotfiles, gitignored, hidden)
+- Ventana lockeada: no se reutiliza para otros buffers
+- Ancho: 35 columnas
+
+## Snacks UI
+
+- Notificaciones: estilo compacto, 3s timeout, abajo a la derecha
+- Inputs: border rounded con backdrop
+- Picker: border rounded, layout "select"
