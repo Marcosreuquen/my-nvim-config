@@ -55,7 +55,7 @@ function M.pick_session()
       vim.g.opencode_last_session_title = item.title
 
       local terminal = require("snacks.terminal")
-      local cmd = "opencode --port 54403 --session " .. item.session_id
+      local cmd = "opencode --port 54403 -s " .. item.session_id
       local snacks_terminal_opts = {
         win = {
           position = "right",

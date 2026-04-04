@@ -181,22 +181,27 @@ return {
         end)
       end
 
-      -- Recommended/example keymaps
+      -- Keymaps
+      
+      -- Quick ask AI with context from current line/selection. Uses a temp session and shows response in a floating window.
       vim.keymap.set({ "n", "x" }, "<C-a>", ask_temp, { desc = "Ask AI (temp session)" })
-      vim.keymap.set({ "n", "x" }, "<C-x>", function() require("opencode").select() end,                          { desc = "Execute opencode action…" })
-      vim.keymap.set({ "n", "t" }, "<C-.>", function() require("opencode").toggle() end,                          { desc = "Toggle opencode" })
 
+      -- Execute opencode action on current line/selection. Opens the session picker if no active session.
+      vim.keymap.set({ "n", "x" }, "<C-x>", function() require("opencode").select() end, { desc = "Execute opencode action…" })
+
+      -- Open opencode session
+      vim.keymap.set({ "n", "t" }, "<C-.>", function() require("opencode").toggle() end, { desc = "Toggle opencode" })
+
+      -- Add current line/selection to the active opencode session's context..
       vim.keymap.set({ "n", "x" }, "go",  function() return require("opencode").operator("@this ") end,        { desc = "Add range to opencode", expr = true })
       vim.keymap.set("n",          "goo", function() return require("opencode").operator("@this ") .. "_" end, { desc = "Add line to opencode", expr = true })
 
+      -- Scroll opencode session (when focused) with Shift+Ctrl+Up/Down. 
       vim.keymap.set("n", "<S-C-u>", function() require("opencode").command("session.half.page.up") end,   { desc = "Scroll opencode up" })
       vim.keymap.set("n", "<S-C-d>", function() require("opencode").command("session.half.page.down") end, { desc = "Scroll opencode down" })
 
-      -- You may want these if you use the opinionated `<C-a>` and `<C-x>` keymaps above — otherwise consider `<leader>o…` (and remove terminal mode from the `toggle` keymap)
-      vim.keymap.set("n", "+", "<C-a>", { desc = "Increment under cursor", noremap = true })
-      vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement under cursor", noremap = true })
-
-      vim.keymap.set("n", "<C-b>", function() require("opencode_sessions").pick_session() end, { desc = "Pick opencode session" })
+      -- Open project previous session picker with Ctrl+b.  
+      vim.keymap.set("n", "<C-b>", function() require("custom/opencode_sessions").pick_session() end, { desc = "Pick opencode session" })
     end,
   }
 }
