@@ -41,6 +41,7 @@ return {
           },
         },
         notification_history = {
+          -- TODO add command to get notification_history
           border = "rounded",
           width = 0.6,
           height = 0.6,

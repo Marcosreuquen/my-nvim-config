@@ -45,3 +45,7 @@ vim.api.nvim_create_user_command("Eslint", function(args)
     vim.cmd("EslintFixAll")
   end
 end, { range = true, desc = "Run ESLint fix on buffer or visual selection" })
+vim.api.nvim_create_user_command("NotificationHistory", function()
+  -- it should use the existing :lua Snacks.notifier.show_history()
+  require("snacks").notifier.show_history()
+end, { desc = "Show notification history" })
