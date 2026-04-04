@@ -1,3 +1,5 @@
+-- Snacks.nvim: UI framework (notifications, input, picker, terminal)
+---@type LazySpec
 return {
   {
     "folke/snacks.nvim",
@@ -23,13 +25,11 @@ return {
           preset = "select",
         },
       },
-      -- Enables the `snacks` terminal provider for opencode
       terminal = {
         win = {
           border = "rounded",
         },
       },
-      -- Style inspired by nickjvandyke/nvim
       styles = {
         notification = {
           border = "rounded",
@@ -41,7 +41,6 @@ return {
           },
         },
         notification_history = {
-          -- TODO add command to get notification_history
           border = "rounded",
           width = 0.6,
           height = 0.6,

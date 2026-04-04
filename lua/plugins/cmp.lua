@@ -1,7 +1,8 @@
+-- nvim-cmp: autocompletion customization
+---@type LazySpec
 return {
   {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
@@ -11,39 +12,30 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "onsails/lspkind.nvim",
     },
-    config = function()
-      local cmp = require("cmp")
-      local luasnip = require("luasnip")
-      local lspkind = require("lspkind")
+    opts = function(_, opts)
+      local cmp = require "cmp"
+      local luasnip = require "luasnip"
+      local lspkind = require "lspkind"
 
       -- Hide copilot ghost text while cmp menu is open
-      cmp.event:on("menu_opened", function()
-        vim.b.copilot_suggestion_hidden = true
-      end)
-      cmp.event:on("menu_closed", function()
-        vim.b.copilot_suggestion_hidden = false
-      end)
+      cmp.event:on("menu_opened", function() vim.b.copilot_suggestion_hidden = true end)
+      cmp.event:on("menu_closed", function() vim.b.copilot_suggestion_hidden = false end)
 
-      cmp.setup({
+      return require("astrocore").extend_tbl(opts, {
         snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
+          expand = function(args) luasnip.lsp_expand(args.body) end,
         },
-
         window = {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
         },
-
         formatting = {
           format = lspkind.cmp_format({
             mode = "symbol_text",
             maxwidth = 50,
-            ellipsis_char = "…",
+            ellipsis_char = "...",
           }),
         },
-
         mapping = cmp.mapping.preset.insert({
           ["<C-k>"] = cmp.mapping.select_prev_item(),
           ["<C-j>"] = cmp.mapping.select_next_item(),
@@ -51,7 +43,7 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+          ["<CR>"] = cmp.mapping.confirm { select = true },
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -71,7 +63,6 @@ return {
             end
           end, { "i", "s" }),
         }),
-
         sources = cmp.config.sources({
           { name = "nvim_lsp", priority = 1000 },
           { name = "luasnip", priority = 750 },

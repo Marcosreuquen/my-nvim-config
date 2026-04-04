@@ -1,18 +1,24 @@
+-- Mason tool installer: LSP servers, formatters, linters
+---@type LazySpec
 return {
   {
-    "williamboman/mason.nvim",
-    opts = {},
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
     opts = {
       ensure_installed = {
-        "lua_ls",
-        "eslint",
+        -- LSP servers
+        "lua-language-server",
+        "eslint-lsp",
+        "typescript-language-server",
+        "vue-language-server",
         "pyright",
-        "volar",
-        "ts_ls",
-        "bashls",
+        "bash-language-server",
+        -- Formatters
+        "stylua",
+        "prettier",
+        "black",
+        "shfmt",
+        -- Other tools
+        "tree-sitter-cli",
       },
     },
   },

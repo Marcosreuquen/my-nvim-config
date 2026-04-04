@@ -1,3 +1,5 @@
+-- ToggleTerm: terminal manager with tab system
+---@type LazySpec
 return {
   {
     "akinsho/toggleterm.nvim",
@@ -5,9 +7,7 @@ return {
     config = function()
       require("toggleterm").setup {
         direction = "horizontal",
-        size = function(term)
-          return math.floor(vim.o.lines * 0.3)
-        end,
+        size = function(term) return math.floor(vim.o.lines * 0.3) end,
         highlights = {
           Normal = { guibg = "NONE" },
           NormalNC = { guibg = "NONE" },
@@ -23,13 +23,9 @@ return {
 
       vim.keymap.set("t", "<C-q>", "<C-\\><C-n>", { noremap = true, silent = true })
 
-      vim.keymap.set({ "n", "t" }, "<C-=>", function()
-        vim.cmd "resize +1"
-      end, { noremap = true, silent = true })
+      vim.keymap.set({ "n", "t" }, "<C-=>", function() vim.cmd "resize +1" end, { noremap = true, silent = true })
 
-      vim.keymap.set({ "n", "t" }, "<C-->", function()
-        vim.cmd "resize -1"
-      end, { noremap = true, silent = true })
+      vim.keymap.set({ "n", "t" }, "<C-->", function() vim.cmd "resize -1" end, { noremap = true, silent = true })
     end,
   },
 }

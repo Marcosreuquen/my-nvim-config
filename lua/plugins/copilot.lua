@@ -1,19 +1,20 @@
+-- Copilot: inline ghost text (like VSCode)
+---@type LazySpec
 return {
-  -- Copilot inline ghost text (like VSCode)
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
     config = function()
-      require("copilot").setup({
+      require("copilot").setup {
         suggestion = {
           enabled = true,
           auto_trigger = true,
           debounce = 75,
           keymap = {
             accept = "<Tab>",
-           accept_line = "<S-Tab>",
-           dismiss = "<A-Tab>",
+            accept_line = "<S-Tab>",
+            dismiss = "<A-Tab>",
           },
         },
         panel = {
@@ -24,8 +25,8 @@ return {
         },
         server = {
           type = "binary",
-        }
-      })
+        },
+      }
 
       -- Redraw statusline so the copilot hint stays in sync
       local prev_visible = false
@@ -34,7 +35,7 @@ return {
         local visible = ok and suggestion.is_visible() or false
         if visible ~= prev_visible then
           prev_visible = visible
-          vim.cmd("redrawstatus")
+          vim.cmd "redrawstatus"
         end
       end
 

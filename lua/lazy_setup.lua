@@ -1,16 +1,21 @@
-return {
-  defaults = { lazy = true },
-  install = { colorscheme = { "nvchad" } },
-
-  ui = {
-    icons = {
-      ft = "",
-      lazy = "󰂠 ",
-      loaded = "",
-      not_loaded = "",
+require("lazy").setup({
+  {
+    "AstroNvim/AstroNvim",
+    version = "^6",
+    import = "astronvim.plugins",
+    opts = {
+      mapleader = " ",
+      maplocalleader = ",",
+      icons_enabled = true,
+      pin_plugins = nil,
+      update_notifications = true,
     },
   },
-
+  { import = "community" },
+  { import = "plugins" },
+} --[[@as LazySpec]], {
+  install = { colorscheme = { "astrotheme", "habamax" } },
+  ui = { backdrop = 100 },
   performance = {
     rtp = {
       disabled_plugins = {
@@ -41,8 +46,7 @@ return {
         "compiler",
         "bugreport",
         "ftplugin",
-        "nvim-tree",
       },
     },
   },
-}
+} --[[@as LazyConfig]])

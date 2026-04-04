@@ -1,8 +1,18 @@
 -- Plugin index: lazy.nvim auto-imports all files in this directory.
--- Each file returns a table of plugin specs grouped by category:
---   editor.lua   → conform, nvim-tree
---   ui.lua       → devicons, render-markdown, neo-tree
---   terminal.lua → toggleterm
---   lsp.lua      → LSP server configurations
---   mason.lua    → Mason installer + mason-lspconfig
+-- Each file returns a table of plugin specs:
+--   astrocore.lua  -> core options, keymaps, autocmds
+--   astrolsp.lua   -> LSP configuration
+--   astroui.lua    -> theme, highlights, icons
+--   mason.lua      -> Mason tool installer
+--   cmp.lua        -> nvim-cmp autocompletion
+--   conform.lua    -> formatters (git-hunk-aware)
+--   neo-tree.lua   -> file explorer
+--   copilot.lua    -> GitHub Copilot ghost text
+--   snacks.lua     -> UI framework (notifications, picker, terminal)
+--   terminal.lua   -> ToggleTerm + term tabs
+--   opencode.lua   -> OpenCode AI integration
+--   lualine.lua    -> statusline
+--   persistence.lua -> session save/restore
+--   todo-comments.lua -> TODO highlighting
+--   ui.lua         -> devicons, render-markdown, codediff, showkeys, theme
 return {}

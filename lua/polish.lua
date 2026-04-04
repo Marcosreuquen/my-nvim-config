@@ -1,4 +1,7 @@
--- Transparencia en ventana de terminal
+-- This will run last in the setup process.
+-- Custom autocommands, user commands, and other polish.
+
+-- Terminal transparency
 vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
   callback = function()
     vim.api.nvim_set_hl(0, "Normal", { bg = "NONE", ctermbg = "NONE" })
@@ -7,17 +10,17 @@ vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
   end,
 })
 
--- Bloquear ventanas de terminal y NvimTree para que no se reutilicen
+-- Lock terminal and neo-tree windows so they cannot be reused for other buffers
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
     local bt = vim.bo.buftype
-    if bt == "terminal" or vim.bo.filetype == "NvimTree" then
+    if bt == "terminal" or vim.bo.filetype == "neo-tree" then
       vim.wo.winfixbuf = true
     end
   end,
 })
 
--- :Format — usa conform.nvim, soporta rango visual
+-- :Format — uses conform.nvim, supports visual range
 vim.api.nvim_create_user_command("Format", function(args)
   local range = nil
   if args.count ~= -1 then
@@ -30,10 +33,9 @@ vim.api.nvim_create_user_command("Format", function(args)
   require("conform").format({ async = true, lsp_fallback = true, range = range })
 end, { range = true, desc = "Format buffer or visual selection" })
 
--- :Eslint — ejecuta EslintFixAll (buffer completo) o code_action en rango visual
+-- :Eslint — runs EslintFixAll (full buffer) or code_action on visual range
 vim.api.nvim_create_user_command("Eslint", function(args)
   if args.count ~= -1 then
-    -- Rango visual: aplica code actions de eslint en la selección
     vim.lsp.buf.code_action({
       context = { only = { "source.fixAll.eslint" } },
       range = {
@@ -42,10 +44,14 @@ vim.api.nvim_create_user_command("Eslint", function(args)
       },
     })
   else
-    vim.cmd("EslintFixAll")
+    vim.cmd "EslintFixAll"
   end
 end, { range = true, desc = "Run ESLint fix on buffer or visual selection" })
+
+-- :NotificationHistory — show Snacks notification history
 vim.api.nvim_create_user_command("NotificationHistory", function()
-  -- it should use the existing :lua Snacks.notifier.show_history()
   require("snacks").notifier.show_history()
 end, { desc = "Show notification history" })
+
+-- Fold highlight
+vim.cmd [[highlight Folded guifg=#D4A6FF guibg=NONE gui=bold]]
