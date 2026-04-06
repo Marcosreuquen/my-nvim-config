@@ -25,12 +25,29 @@ return {
           {
             provider = function()
               local ok, opencode = pcall(require, "opencode")
-              if ok and opencode.statusline then return opencode.statusline() end
-              return ""
+              if not ok then return "" end
+              local base = opencode.statusline()
+              if not base or base == "" then return "" end
+              return " 󱚧 OpenCode "
             end,
           },
-          surround = { separator = "right", color = status.hl.mode_bg },
-          hl = status.hl.get_attributes "mode",
+          surround = { separator = "right", color = status.hl.mode_bg},
+          -- hl = status.hl.get_attributes "mode",
+          hl = { fg = '#555555', bg = status.hl.mode_bg }
+        },
+        -- Terminal tabs status
+        status.component.builder {
+          {
+            provider = function()
+              local ok, term_tabs = pcall(require, "custom.term_tabs")
+              if not ok then return "" end
+              local s = term_tabs.get_status()
+              if not s then return "" end
+              return " " .. " " .. s.current .. "/" .. s.total .. " "
+            end,
+          },
+          update = { "User", pattern = "TermChanged" },
+          hl = status.hl.get_attributes "area_nav",
         },
       }
     end,

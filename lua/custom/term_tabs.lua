@@ -49,6 +49,7 @@ function M.new()
   table.insert(term_ids, id)
   active_id = id
   vim.cmd(id .. "ToggleTerm")
+  vim.api.nvim_exec_autocmds("User", { pattern = "TermChanged" })
 end
 
 -- Cierra y elimina la terminal activa, luego va a la adyacente
@@ -75,6 +76,7 @@ function M.close()
   else
     active_id = nil
   end
+  vim.api.nvim_exec_autocmds("User", { pattern = "TermChanged" })
 end
 
 -- Salta a la siguiente terminal (cíclico)
@@ -85,6 +87,7 @@ function M.next()
   hide_active()
   active_id = term_ids[(idx % #term_ids) + 1]
   vim.cmd(active_id .. "ToggleTerm")
+  vim.api.nvim_exec_autocmds("User", { pattern = "TermChanged" })
 end
 
 -- Salta a la terminal anterior (cíclico)
@@ -95,6 +98,7 @@ function M.prev()
   hide_active()
   active_id = term_ids[((idx - 2) % #term_ids) + 1]
   vim.cmd(active_id .. "ToggleTerm")
+  vim.api.nvim_exec_autocmds("User", { pattern = "TermChanged" })
 end
 
 -- Estado para el statusline

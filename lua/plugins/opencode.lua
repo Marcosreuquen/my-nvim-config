@@ -28,7 +28,7 @@ return {
       },
     },
     config = function()
-      local cmd = "opencode --port 54403"
+      local cmd = "opencode --port 54403" -- TODO: it should dinamically assign the port so in case i'm using multiple sessions it won't conflict
       ---@type snacks.terminal.Opts
       local snacks_terminal_opts = {
         win = {
@@ -87,7 +87,7 @@ return {
           local message = file_ref ~= "" and (file_ref .. " " .. question) or question
           local notif_id = vim.notify("Running opencode...", vim.log.levels.INFO, { title = "AI", timeout = 0 })
 
-          local run_cmd = { "opencode", "run", "--title", "temp" }
+          local run_cmd = { "opencode", "run", "--title", "temp", "--agent", "quick-question" } -- It depends on having the agent called "quick-question"
 
           vim.system(
             { "opencode", "session", "list", "--format", "json", "--max-count", "50" },
@@ -180,3 +180,5 @@ return {
     end,
   },
 }
+
+-- TODO: look for a way to show tokens/requests in the statusline or a floating window, maybe using snacks notifier for that. It would be nice to have some feedback of what's going on when we send a request to opencode, specially if the response takes a while. Maybe also show a spinner or something while waiting for the response.
