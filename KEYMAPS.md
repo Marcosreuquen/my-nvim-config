@@ -141,6 +141,20 @@
 | Pick session (resumir) | `<C-b>` |
 | Enviar desde Snacks picker | `<A-a>` (en picker input) |
 
+## Claude Code AI
+
+| Accion | Keymap |
+|---|---|
+| Toggle Claude Code terminal | `<C-,>` |
+| Enviar seleccion/buffer a Claude | `<Leader>as` |
+| Agregar archivo actual al contexto | `<Leader>ac` |
+| Agregar archivo de neo-tree | `<Leader>at` |
+| Seleccionar modelo | `<Leader>am` |
+| Aceptar diff (en buffer de diff) | `<CR>` |
+| Rechazar diff (en buffer de diff) | `<Del>` / `<BS>` |
+
+> `<C-,>` espeja `<C-.>` de OpenCode. El diff usa keymaps locales al buffer.
+
 ## TODO Comments
 
 | Accion | Keymap |
