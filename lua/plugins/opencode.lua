@@ -86,8 +86,13 @@ return {
 
           local message = file_ref ~= "" and (file_ref .. " " .. question) or question
           local notif_id = vim.notify("Running opencode...", vim.log.levels.INFO, { title = "AI", timeout = 0 })
-
-          local run_cmd = { "opencode", "run", "--title", "temp", "--agent", "quick-question" } -- It depends on having the agent called "quick-question"
+          
+          -- model: it should select from `opencode models | grep opencode/`, first: 'opencode/gpt-5-nano', if it's not available, use any other from the opencode models | grep opencode/ list.
+          --
+          -- local opencode_models = vim.fn.system({ "opencode", "models", "--format", "json" })
+          local default_model = "opencode/gpt-5-nano"
+          
+          local run_cmd = { "opencode", "run", "--title", "temp", "--model", default_model, "--agent", "quick-question" } -- It depends on having the agent called "quick-question"
 
           vim.system(
             { "opencode", "session", "list", "--format", "json", "--max-count", "50" },

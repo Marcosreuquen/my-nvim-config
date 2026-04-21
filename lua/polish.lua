@@ -1,6 +1,10 @@
 -- This will run last in the setup process.
 -- Custom autocommands, user commands, and other polish.
 
+-- Static line numbers (no relative line numbers)
+vim.opt.number = true
+vim.opt.relativenumber = false
+
 -- Terminal transparency
 vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
   callback = function()
