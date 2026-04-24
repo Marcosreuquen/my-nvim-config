@@ -23,9 +23,7 @@ return {
         spell = false,
         signcolumn = "yes",
         wrap = false,
-        -- Treesitter-based folding
-        foldmethod = "expr",
-        foldexpr = "nvim_treesitter#foldexpr()",
+        -- Folding managed by nvim-ufo (uses LSP ranges)
         foldenable = true,
         foldlevel = 99,
         foldlevelstart = 99,

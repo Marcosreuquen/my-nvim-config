@@ -120,6 +120,24 @@ return {
           update = { "BufEnter", "WinEnter", "FocusGained", "User" },
         },
 
+        -- Markdown Preview component: visible when a live-server is active
+        status.component.builder {
+          condition = function()
+            local ok, mp = pcall(require, "markdown_preview")
+            return ok and (mp._server_instance ~= nil or mp._takeover_port ~= nil)
+          end,
+          {
+            provider = function()
+              local ok, mp = pcall(require, "markdown_preview")
+              if not ok then return "" end
+              local port = mp._server_instance and mp._server_instance.port or mp._takeover_port
+              return " 󰍔 MD :" .. tostring(port) .. " "
+            end,
+            hl = function() return { fg = "#e5c07b", bg = "NONE" } end,
+          },
+          update = { "BufEnter", "WinEnter", "FocusGained", "User" },
+        },
+
         -- Terminal tabs status
         status.component.builder {
           {

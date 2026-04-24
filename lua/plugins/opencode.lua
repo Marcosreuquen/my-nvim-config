@@ -34,6 +34,9 @@ return {
         win = {
           position = "right",
           enter = false,
+          wo = {
+            winhighlight = "Normal:Normal,NormalFloat:Normal,FloatBorder:WinSeparator",
+          },
           on_win = function(win) require("opencode.terminal").setup(win.win) end,
         },
       }
@@ -136,7 +139,7 @@ return {
                   end
                   local editor_w = vim.o.columns
                   local editor_h = vim.o.lines
-                  local w = math.max(40, math.min(max_line_len + 4, math.floor(editor_w * 0.75)))
+                  local w = math.max(30, math.min(max_line_len + 4, math.floor(editor_w * 0.6)))
                   local h = math.max(5, math.min(#lines + 2, math.floor(editor_h * 0.8)))
 
                   Snacks.win {

@@ -12,23 +12,15 @@ return {
       focus_after_send = false,
       split_side = "right",
       split_width_percentage = 0.35,
-      diff_opts = {
-        layout = "vertical",
-        open_in_new_tab = false,
-        keep_terminal_focus = false,
-      },
     },
     config = function(_, opts)
       require("claudecode").setup(opts)
 
-      -- Set Enter/Delete as diff accept/deny in Claude diff buffers
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "ClaudeCodeDiff",
-        callback = function(ev)
-          local buf = ev.buf
-          vim.keymap.set("n", "<CR>",  "<cmd>ClaudeCodeDiffAccept<CR>", { buffer = buf, desc = "Accept Claude diff" })
-          vim.keymap.set("n", "<Del>", "<cmd>ClaudeCodeDiffDeny<CR>",   { buffer = buf, desc = "Reject Claude diff" })
-          vim.keymap.set("n", "<BS>",  "<cmd>ClaudeCodeDiffDeny<CR>",   { buffer = buf, desc = "Reject Claude diff" })
+      -- Make the Claude terminal window transparent like the rest of the UI
+      vim.api.nvim_create_autocmd("TermOpen", {
+        pattern = "*claude*",
+        callback = function()
+          vim.wo.winhighlight = "Normal:Normal,NormalFloat:Normal,FloatBorder:WinSeparator"
         end,
       })
     end,
