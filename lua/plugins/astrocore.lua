@@ -13,7 +13,16 @@ return {
       notifications = true,
     },
     diagnostics = {
-      virtual_text = true,
+      virtual_text = {
+        format = function(diagnostic)
+          local msg = diagnostic.message or ""
+
+          if diagnostic.code == "prettier/prettier" then return nil end
+          if msg:match "^Replace" then return nil end
+
+          return msg
+        end,
+      },
       underline = true,
     },
     options = {
@@ -66,6 +75,21 @@ return {
             end
           end,
           desc = "Close buffer (or window if last)",
+        },
+
+        -- Diffview: diff against a branch (prompt) or uncommitted changes
+        ["<Leader>gv"] = {
+          function()
+            vim.ui.input({ prompt = "Branch to diff (leave empty for HEAD): " }, function(branch)
+              if branch == nil then return end
+              if branch ~= "" then
+                vim.cmd("DiffviewOpen " .. branch .. "...HEAD")
+              else
+                vim.cmd "DiffviewOpen"
+              end
+            end)
+          end,
+          desc = "Diff against branch",
         },
 
         -- Close buffer from tabline

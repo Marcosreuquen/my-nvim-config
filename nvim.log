@@ -1,0 +1,9 @@
+WRN 2026-04-29T11:11:07.271 c/nvim.76740.0 server_start:197: Failed to start server: operation not permitted: /var/folders/xg/sz_cblrd4jz40wz6wh7sn7bc0000gn/T/nvim.marcosreuquen/Ppos8r/nvim.81088.0
+WRN 2026-05-11T13:03:42.117 ?.78804    server_start:197: Failed to start server: operation not permitted: /var/folders/xg/sz_cblrd4jz40wz6wh7sn7bc0000gn/T/nvim.marcosreuquen/A88YbK/nvim.78804.0
+WRN 2026-05-26T09:52:13.697 c/nvim.41879.0 server_start:197: Failed to start server: operation not permitted: /var/folders/xg/sz_cblrd4jz40wz6wh7sn7bc0000gn/T/nvim.marcosreuquen/G1NVkY/nvim.46352.0
+WRN 2026-05-26T09:52:57.555 c/nvim.41879.0 server_start:197: Failed to start server: operation not permitted: /var/folders/xg/sz_cblrd4jz40wz6wh7sn7bc0000gn/T/nvim.marcosreuquen/qoVk9P/nvim.48156.0
+WRN 2026-05-26T09:53:03.699 c/nvim.41879.0 server_start:197: Failed to start server: operation not permitted: /var/folders/xg/sz_cblrd4jz40wz6wh7sn7bc0000gn/T/nvim.marcosreuquen/tfzC2q/nvim.48322.0
+WRN 2026-05-26T10:00:35.891 c/nvim.50733.0 server_start:197: Failed to start server: operation not permitted: /var/folders/xg/sz_cblrd4jz40wz6wh7sn7bc0000gn/T/nvim.marcosreuquen/9Lsx7J/nvim.55182.0
+WRN 2026-05-26T10:00:36.034 c/nvim.50733.0 server_start:197: Failed to start server: operation not permitted: /var/folders/xg/sz_cblrd4jz40wz6wh7sn7bc0000gn/T/nvim.marcosreuquen/tJaLtO/nvim.55203.0
+WRN 2026-05-26T10:08:20.947 c/nvim.63001.0 server_start:197: Failed to start server: operation not permitted: /var/folders/xg/sz_cblrd4jz40wz6wh7sn7bc0000gn/T/nvim.marcosreuquen/6jLlui/nvim.66997.0
+WRN 2026-05-26T10:08:39.834 c/nvim.63001.0 server_start:197: Failed to start server: operation not permitted: /var/folders/xg/sz_cblrd4jz40wz6wh7sn7bc0000gn/T/nvim.marcosreuquen/K8cUGU/nvim.67360.0

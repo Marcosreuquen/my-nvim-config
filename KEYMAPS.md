@@ -110,22 +110,22 @@
 
 > Copilot se oculta automaticamente cuando el menu de blink.cmp esta abierto.
 
-## Terminal (ToggleTerm custom con tabs)
+## Terminal (Snacks custom con tabs)
 
 | Accion | Keymap |
 |---|---|
-| Toggle terminal activa | `<C-t>` |
+| Toggle terminal right | `<C-.>` |
+| Toggle terminal bottom | `<C-,>` |
 | Nueva terminal tab | `<A-t>` |
 | Cerrar terminal tab | `<A-w>` |
-| Siguiente terminal | `<A-l>` |
-| Terminal anterior | `<A-h>` |
+| Siguiente terminal | `<A-.>` |
+| Terminal anterior | `<A-,>` |
 | Salir de terminal mode | `<C-q>` |
 | Resize terminal + | `<C-=>` |
 | Resize terminal - | `<C-->` |
 | Float terminal | `<Leader>tf` |
-| Horizontal terminal | `<Leader>th` |
-| Vertical terminal | `<Leader>tv` |
 | Lazygit | `<Leader>tl` |
+| Lazydocker | `<Leader>td` |
 
 ## OpenCode AI
 
@@ -133,7 +133,6 @@
 |---|---|
 | Ask AI (temp session, float) | `<C-a>` |
 | Execute action (picker) | `<C-x>` |
-| Toggle opencode panel | `<C-.>` |
 | Add range/file a contexto | `go` (normal + visual) |
 | Add linea a contexto | `goo` |
 | Scroll opencode up | `<S-C-u>` |
@@ -145,7 +144,6 @@
 
 | Accion | Keymap |
 |---|---|
-| Toggle Claude Code terminal | `<C-,>` |
 | Enviar seleccion/buffer a Claude | `<Leader>as` |
 | Agregar archivo actual al contexto | `<Leader>ac` |
 | Agregar archivo de neo-tree | `<Leader>at` |
@@ -153,7 +151,7 @@
 | Aceptar diff (en buffer de diff) | `<CR>` |
 | Rechazar diff (en buffer de diff) | `<Del>` / `<BS>` |
 
-> `<C-,>` espeja `<C-.>` de OpenCode. El diff usa keymaps locales al buffer.
+> El diff usa keymaps locales al buffer.
 
 ## TODO Comments
 
@@ -218,6 +216,18 @@
 
 ---
 
+## Git Diff (Diffview)
+
+| Accion | Keymap / Comando |
+|---|---|
+| Diff contra branch (prompt) | `<Leader>gv` |
+| `:BranchDiff <branch>` | Diff del branch actual vs `<branch>` (ej: `main`, `origin/main`) |
+| `:BranchDiff` | Muestra cambios sin commitear (vs HEAD) |
+| `:DiffviewOpen` | Igual que `:BranchDiff` sin args |
+| Cerrar diffview | `<Esc>` / `q` |
+
+> `:BranchDiff main` equivale a `git diff main...HEAD`. Con `<Leader>gv` se abre un prompt para ingresar el branch.
+
 ## Comandos personalizados
 
 | Comando | Descripcion |
@@ -246,6 +256,7 @@
 - Items ocultos visibles por defecto (dotfiles, gitignored, hidden)
 - Ventana lockeada: no se reutiliza para otros buffers
 - Ancho: 35 columnas
+ - Backspace: colapsa/expande el nodo seleccionado en Neo-tree (mantiene el root del proyecto)
 
 ## Snacks UI
 

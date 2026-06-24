@@ -9,10 +9,10 @@
 --   neo-tree.lua   -> file explorer
 --   copilot.lua    -> GitHub Copilot ghost text
 --   snacks.lua     -> UI framework (notifications, picker, terminal)
---   terminal.lua   -> ToggleTerm + term tabs
+--   terminal.lua   -> Snacks terminal + term tabs
 --   opencode.lua   -> OpenCode AI integration
 --   lualine.lua    -> statusline
 --   persistence.lua -> session save/restore
 --   todo-comments.lua -> TODO highlighting
---   ui.lua         -> devicons, render-markdown, codediff, showkeys, theme
+--   ui.lua         -> devicons, render-markdown, diffview, showkeys, theme
 return {}

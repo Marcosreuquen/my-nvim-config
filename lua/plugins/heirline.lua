@@ -146,11 +146,11 @@ return {
               if not ok then return "" end
               local s = term_tabs.get_status()
               if not s then return "" end
-              return " " .. " " .. s.current .. "/" .. s.total .. " "
+              return (" TERM %s [%d/%d] "):format(s.group, s.current, s.total)
             end,
           },
-          update = { "User", pattern = "TermChanged" },
-          hl = status.hl.get_attributes "area_nav",
+          update = { "BufEnter", "WinEnter", "User" },
+          hl = function() return { fg = "#5eb7ff", bg = "NONE", bold = true } end,
         },
       }
     end,
