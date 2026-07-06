@@ -14,5 +14,5 @@
 --   lualine.lua    -> statusline
 --   persistence.lua -> session save/restore
 --   todo-comments.lua -> TODO highlighting
---   ui.lua         -> devicons, render-markdown, diffview, showkeys, theme
+--   ui.lua         -> devicons, render-markdown, codediff, showkeys, theme
 return {}

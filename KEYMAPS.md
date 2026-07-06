@@ -214,19 +214,18 @@
 | Mason (tools) | `<Leader>pm` |
 | Update all | `<Leader>pa` |
 
----
-
-## Git Diff (Diffview)
+## Git Diff (CodeDiff)
 
 | Accion | Keymap / Comando |
 |---|---|
 | Diff contra branch (prompt) | `<Leader>gv` |
-| `:BranchDiff <branch>` | Diff del branch actual vs `<branch>` (ej: `main`, `origin/main`) |
-| `:BranchDiff` | Muestra cambios sin commitear (vs HEAD) |
-| `:DiffviewOpen` | Igual que `:BranchDiff` sin args |
-| Cerrar diffview | `<Esc>` / `q` |
+| `:CodeDiff` | Explorer con cambios sin commitear (vs HEAD) |
+| `:CodeDiff <branch>` | Explorer comparando contra `<branch>` |
+| `:CodeDiff <branch>...HEAD` | Diff merge-base: solo cambios commiteados desde que se creo el branch |
+| Cerrar diff | `q` |
+| Siguiente/anterior hunk | `]c` / `[c` |
 
-> `:BranchDiff main` equivale a `git diff main...HEAD`. Con `<Leader>gv` se abre un prompt para ingresar el branch.
+> Con `<Leader>gv` se abre un prompt para ingresar el branch; vacio equivale a `:CodeDiff` (cambios sin commitear).
 
 ## Comandos personalizados
 

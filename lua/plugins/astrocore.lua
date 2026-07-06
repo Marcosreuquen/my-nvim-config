@@ -77,15 +77,15 @@ return {
           desc = "Close buffer (or window if last)",
         },
 
-        -- Diffview: diff against a branch (prompt) or uncommitted changes
+        -- CodeDiff: diff against a branch (prompt) or uncommitted changes
         ["<Leader>gv"] = {
           function()
             vim.ui.input({ prompt = "Branch to diff (leave empty for HEAD): " }, function(branch)
               if branch == nil then return end
               if branch ~= "" then
-                vim.cmd("DiffviewOpen " .. branch .. "...HEAD")
+                vim.cmd("CodeDiff " .. branch .. "...HEAD")
               else
-                vim.cmd "DiffviewOpen"
+                vim.cmd "CodeDiff"
               end
             end)
           end,
